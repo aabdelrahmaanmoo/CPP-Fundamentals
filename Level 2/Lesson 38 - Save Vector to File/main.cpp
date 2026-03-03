@@ -1,0 +1,51 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+using namespace std;
+
+void LoadDataFromFileToVector(string FileName, vector<string> &vFileContent)
+{
+    fstream MyFile;
+    MyFile.open(FileName, ios::in);
+
+    if (MyFile.is_open())
+    {
+        string Line;
+        while (getline(MyFile, Line))
+        {
+            vFileContent.push_back(Line);
+        }
+        MyFile.close();
+    }
+}
+
+void SaveVectorToFile(string FileName, vector<string> &vFileContent)
+{
+    fstream MyFile;
+    MyFile.open(FileName, ios::app);
+
+    if (MyFile.is_open())
+    {
+        for (string Line : vFileContent)
+        {
+            MyFile << Line << endl;
+        }
+        MyFile.close();
+    }
+}
+
+int main()
+{
+    vector<string> vFileContenet;
+
+    LoadDataFromFileToVector("MyFile.txt", vFileContenet);
+    SaveVectorToFile("MyFile.txt", vFileContenet);
+
+    // for (string &Line : vFileContenet)
+    // {
+    //     cout << Line << endl;
+    // }
+
+    return 0;
+}
